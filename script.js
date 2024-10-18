@@ -1,17 +1,17 @@
-//obtem os elementos de botão e formulários de login/cadastro
+// Obtém os elementos de botão e formulários de login/cadastro
 const signUpButton = document.getElementById('signUpButton');
 const signInButton = document.getElementById('signInButton');
-const signInform = document.getElementById('signIn');
-const signUpform = document.getElementById('signUp');
+const signInForm = document.getElementById('signIn');
+const signUpForm = document.getElementById('signup');
 
-//quando o botão de cadastro é clicado, esconde o formulário de login e mostra o de cadastro
+// Quando o botão de cadastro é clicado, esconde o formulário de login e mostra o de cadastro
 signUpButton.addEventListener('click', function() {
-    signInform.style.display = "none";
-    signUpform.style.display = "block";
+    signInForm.style.display = "none";
+    signUpForm.style.display = "block";
 });
 
-//quando o botão de login é clicado, esconde o formulário de cadastro e mostra o de login
+// Quando o botão de login é clicado, esconde o formulário de cadastro e mostra o de login
 signInButton.addEventListener('click', function() {
-    signInform.style.display = "block";
-    signUpform.style.display = "none";
+    signInForm.style.display = "block";
+    signUpForm.style.display = "none";
 });
