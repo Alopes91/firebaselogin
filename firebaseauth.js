@@ -11,7 +11,7 @@ const firebaseConfig = {
     storageBucket: "loginpwii.firebasestorage.app",
     messagingSenderId: "281365893072",
     appId: "1:281365893072:web:86ffd0012c334bbebbf3d5"
-  };
+};
 
 // Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
