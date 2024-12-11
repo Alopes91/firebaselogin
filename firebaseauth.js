@@ -1,6 +1,6 @@
 // Importa as funções necessárias do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 // Configurações do Firebase
@@ -146,4 +146,39 @@ signIn.addEventListener('click', (event) => {
             showMessage('Essa conta não existe', 'signInMessage');
         }
     });
+});
+
+// Função para recuperação de senha
+function recoverPassword() {
+    // Captura o e-mail do usuário
+    const email = prompt("Por favor, insira seu e-mail para recuperação de senha:");
+
+    if (!email) {
+        alert("E-mail não pode estar vazio!");
+        return;
+    }
+
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
+            alert("E-mail de recuperação enviado! Verifique sua caixa de entrada.");
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            if (errorCode === "auth/user-not-found") {
+                alert("Usuário não encontrado. Verifique o e-mail informado.");
+            } else if (errorCode === "auth/invalid-email") {
+                alert("O e-mail inserido é inválido. Tente novamente.");
+            } else {
+                alert("Ocorreu um erro: " + errorMessage);
+            }
+        });
+}
+
+// Adiciona evento ao link "Recuperar Senha"
+const recoverLink = document.querySelector(".recover a");
+recoverLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    recoverPassword();
 });
