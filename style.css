@@ -109,7 +109,7 @@ body {
 }
 
 .icons i:hover {
-    color: #F1AF09;
+    color: #1D6DCD;
 }
 
 .links {
@@ -148,6 +148,35 @@ body {
     padding: 10px;
     color: red;
     font-size: 0.9rem;
+}
+
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white; /* Cor do Google */
+    color: #1D6DCD;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0px;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.google-login-btn:hover {
+    background-color: #F1AF09; /* Cor do Google quando o botão é hover */
+}
+
+.google-login-btn i {
+    margin-left: -40px; /* Distância entre o ícone e o texto */
+    margin-right: 30px;
+}
+
+.google-login-btn span {
+    margin-left: 20px; /* Caso você queira ajustar o espaçamento do texto */
 }
 
 @media (max-width: 600px) {

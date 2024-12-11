@@ -15,6 +15,58 @@ const firebaseConfig = {
 
 // Inicializa o Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(); // Configura o serviço de autenticação
+const db = getFirestore(); // Conecta ao Firestore
+
+// Função para autenticar com o Google
+function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+
+signInWithPopup(auth, provider)
+    .then(async (result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        const displayName = user.displayName; // Nome completo do usuário
+        const email = user.email; // E-mail do usuário
+        const [firstName, ...lastName] = displayName.split(" ");
+        const lastNameJoined = lastName.join(" ");
+
+        // Cria ou atualiza o documento do usuário no Firestore
+        const docRef = doc(db, "users", user.uid);
+        const userData = {
+            firstName,
+            lastName: lastNameJoined,
+            email,
+        };
+
+        await setDoc(docRef, userData, { merge: true });
+
+        // Salva o UID do usuário no localStorage
+        localStorage.setItem("loggedInUserId", user.uid);
+
+        // Redireciona para a página inicial
+        window.location.href = "homepage.html";
+
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.error('Erro na autenticação com Google:', error);
+    });
+}
+
+// Associa evento de clique ao botão Google
+// Seleciona todos os botões com a classe 'google-login-btn'
+const googleLoginButtons = document.querySelectorAll('.google-login-btn');
+
+// Adiciona o evento de clique para cada botão
+googleLoginButtons.forEach(button => {
+    button.addEventListener('click', signInWithGoogle);
+});
+
 
 // Função para exibir mensagens temporárias na interface
 function showMessage(message, divId) {
@@ -37,9 +89,6 @@ signUp.addEventListener('click', (event) => {
     const password = document.getElementById('rPassword').value;
     const firstName = document.getElementById('fName').value;
     const lastName = document.getElementById('lName').value;
-
-    const auth = getAuth(); // Configura o serviço de autenticação
-    const db = getFirestore(); // Conecta ao Firestore
 
     // Cria uma conta com e-mail e senha
     createUserWithEmailAndPassword(auth, email, password)
@@ -77,8 +126,7 @@ signIn.addEventListener('click', (event) => {
     // Captura os dados do formulário de login
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const auth = getAuth(); // Configura o serviço de autenticação
-
+    
     // Realiza o login com e-mail e senha
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
