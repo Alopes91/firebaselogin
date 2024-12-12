@@ -1,7 +1,7 @@
 // Importa as funções necessárias do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { getFirestore, setDoc, doc, getDocs, collection, query, where } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 // Configurações do Firebase
 const firebaseConfig = {
@@ -67,7 +67,6 @@ googleLoginButtons.forEach(button => {
     button.addEventListener('click', signInWithGoogle);
 });
 
-
 // Função para exibir mensagens temporárias na interface
 function showMessage(message, divId) {
     var messageDiv = document.getElementById(divId);
@@ -111,9 +110,9 @@ signUp.addEventListener('click', (event) => {
     .catch((error) => {
         const errorCode = error.code;
         if (errorCode == 'auth/email-already-in-use') {
-            showMessage('Endereço de email já existe', 'signUpMessage');
+            showMessage('Endereço de e-mail já existe', 'signUpMessage');
         } else {
-            showMessage('não é possível criar usuário', 'signUpMessage');
+            showMessage('Não é possível criar usuário', 'signUpMessage');
         }
     });
 });
@@ -130,7 +129,7 @@ signIn.addEventListener('click', (event) => {
     // Realiza o login com e-mail e senha
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-        showMessage('usuário logado com sucesso', 'signInMessage'); // Exibe mensagem de sucesso
+        showMessage('Usuário logado com sucesso', 'signInMessage'); // Exibe mensagem de sucesso
         const user = userCredential.user;
 
         // Salva o ID do usuário no localStorage
@@ -141,7 +140,7 @@ signIn.addEventListener('click', (event) => {
     .catch((error) => {
         const errorCode = error.code;
         if (errorCode === 'auth/invalid-credential') {
-            showMessage('Email ou Senha incorreta', 'signInMessage');
+            showMessage('E-mail ou senha incorreta', 'signInMessage');
         } else {
             showMessage('Essa conta não existe', 'signInMessage');
         }
@@ -149,7 +148,7 @@ signIn.addEventListener('click', (event) => {
 });
 
 // Função para recuperação de senha
-function recoverPassword() {
+async function recoverPassword() {
     // Captura o e-mail do usuário
     const email = prompt("Por favor, insira seu e-mail para recuperação de senha:");
 
@@ -158,22 +157,30 @@ function recoverPassword() {
         return;
     }
 
-    sendPasswordResetEmail(auth, email)
-        .then(() => {
-            alert("E-mail de recuperação enviado! Verifique sua caixa de entrada.");
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+    try {
+        // Verifica a existência do e-mail no Firestore
+        const usersRef = collection(db, "users"); // Coleção de usuários
+        const q = query(usersRef, where("email", "==", email));
+        const querySnapshot = await getDocs(q);
 
-            if (errorCode === "auth/user-not-found") {
-                alert("Usuário não encontrado. Verifique o e-mail informado.");
-            } else if (errorCode === "auth/invalid-email") {
-                alert("O e-mail inserido é inválido. Tente novamente.");
-            } else {
-                alert("Ocorreu um erro: " + errorMessage);
-            }
-        });
+        if (querySnapshot.empty) {
+            alert("Usuário não encontrado. Verifique o e-mail informado.");
+            return;
+        }
+
+        // Envia o e-mail de recuperação se o e-mail existir
+        await sendPasswordResetEmail(auth, email);
+        alert("E-mail de recuperação enviado! Verifique sua caixa de entrada.");
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        if (errorCode === "auth/invalid-email") {
+            alert("O e-mail inserido é inválido. Tente novamente.");
+        } else {
+            alert("Ocorreu um erro: " + errorMessage);
+        }
+    }
 }
 
 // Adiciona evento ao link "Recuperar Senha"
