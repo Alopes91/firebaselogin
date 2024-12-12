@@ -143,6 +143,14 @@ Exemplo de tratamento de erros:
 });
 ```
 
+## Funcionamento do Projeto
+
+Abaixo estão alguns screenshots que ilustram o funcionamento da telas de criação de conta, de login, de login com Google e de recuperação de senha.
+
+### Tela de login
+
+![Criar sua conta - início](./images/criar%20sua%20conta%20-%20início.PNG)
+
 ## Conclusão
 
 Este projeto demonstra como integrar o Firebase em aplicações web para realizar autenticação segura e gestão de usuários, utilizando recursos modernos e boas práticas de desenvolvimento. Além disso, aborda validação de entrada e recuperação de senha para oferecer uma experiência completa ao usuário.

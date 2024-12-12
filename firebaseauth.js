@@ -183,7 +183,7 @@ async function recoverPassword() {
     }
 }
 
-// Adiciona evento ao link "Recuperar Senha"
+// Adiciona evento ao link "Esqueceu a senha?"
 const recoverLink = document.querySelector(".recover a");
 recoverLink.addEventListener("click", (event) => {
     event.preventDefault();
