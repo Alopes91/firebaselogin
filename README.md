@@ -175,7 +175,33 @@ Abaixo estão alguns screenshots que ilustram o funcionamento das telas de cria�
 
 ![Conta logada por e-mail e senha](./images/conta%20logada.PNG)
 
+### Login com Google
 
+![Login com Google](./images/login%20com%20google.PNG)
+
+### Conta logada pelo Google
+
+![Conta logada pelo Google](./images/login%20com%20google%20-%20conta%20logada.PNG)
+
+### Recuperação de senha - Início
+
+![Recuperação de senha - Início](./images/esqueceu%20a%20senha%20-%20início.PNG)
+
+### Recuperação de senha - E-mail cadastrado
+
+![Recuperação de senha - E-mail cadastrado](./images/esqueci%20a%20senha%20-%20e-mail%20cadastrado.PNG)
+
+### Recuperação de senha - E-mail de recuperação enviado
+
+![Recuperação de senha - E-mail de recuperação enviado](./images/e-mail%20correto%20enviado.PNG)
+
+### Recuperação de senha - E-mail não cadastrado
+
+![Recuperação de senha - E-mail não cadastrado](./images/esqueci%20a%20senha%20-%20e-mail%20não%20cadastrado.PNG)
+
+### Recuperação de senha - E-mail de recuperação não enviado
+
+![Recuperação de senha - E-mail de recuperação não enviado](./images/e-mail%20incorreto%20-%20não%20encontrado.PNG)
 
 ## Conclusão
 
