@@ -145,11 +145,37 @@ Exemplo de tratamento de erros:
 
 ## Funcionamento do Projeto
 
-Abaixo estão alguns screenshots que ilustram o funcionamento da telas de criação de conta, de login, de login com Google e de recuperação de senha.
+Abaixo estão alguns screenshots que ilustram o funcionamento das telas de criação de conta, de login, de login com Google, de conta logada e de recuperação de senha.
 
-### Tela de login
+### Criação de conta - Início
 
-![Criar sua conta - início](./images/criar%20sua%20conta%20-%20início.PNG)
+![Criação de conta - Início](./images/criar%20sua%20conta%20-%20início.PNG)
+
+### Criação de conta - Preenchimento
+
+![Criação de conta - Preenchimento](./images/criando%20conta.PNG)
+
+### Criação de conta - Campo sem formato de e-mail
+
+![Criação de conta - Campo sem formato de e-mail](./images/criando%20conta%20sem%20formato%20de%20e-mail.PNG)
+
+### Login - Início
+
+![Login - Início](./images/login%20-%20início.PNG)
+
+### Login - Preenchimento
+
+![Login - Preenchimento](./images/fazendo%20login.PNG)
+
+### Login - Senha incorreta
+
+![Login - Senha incorreta](./images/e-mail%20ou%20senha%20incorreta.PNG)
+
+### Conta logada por e-mail e senha
+
+![Conta logada por e-mail e senha](./images/conta%20logada.PNG)
+
+
 
 ## Conclusão
 
